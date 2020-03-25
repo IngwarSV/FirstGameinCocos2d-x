@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-//#include "GameLayer.h"
+#include "GameLayer.h"
 
 
 

@@ -55,8 +55,8 @@ bool GameMenu::init()
 
 void GameMenu::onNewGameClick(cocos2d::Ref* sender)
 {
-	//auto gameScene = Scene::create();
-	////gameScene->addChild(GameLayer::create());
+	auto gameScene = Scene::create();
+	gameScene->addChild(GameLayer::create());
 
-	//Director::getInstance()->replaceScene(gameScene);
+	Director::getInstance()->replaceScene(gameScene);
 }
