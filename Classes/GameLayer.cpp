@@ -18,6 +18,7 @@ cocos2d::Scene* GameLayer::createScene() {
 
 bool GameLayer::init() {
 
+
 	// Adding game background
 	auto background = Sprite::create("Images/game_background.png");
 	this->addChild(background, -1000);
@@ -27,8 +28,9 @@ bool GameLayer::init() {
 	bloodOverlay->setOpacity(0);
 	this->addChild(bloodOverlay, 1000);
 
-
-	
+	// Adding Player
+	auto player = Player::create();
+	this->addChild(player, 100);
 
 
 

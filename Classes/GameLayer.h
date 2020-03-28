@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-//#include "Player.h"
+#include "Player.h"
 //#include "Baddie.h"
 
 

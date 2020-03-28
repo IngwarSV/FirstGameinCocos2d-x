@@ -30,6 +30,12 @@
     <ClCompile Include="..\Classes\GameMenu.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Core.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -42,6 +48,12 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Core.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
