@@ -23,7 +23,7 @@ bool Core::init()
 	for (auto i = 1u; i <= explosionFrames.capacity(); ++i) {
 		std::string spriteName = "explosion_";
 
-		if (i < 10) {
+		if (i < 10u) {
 			spriteName = spriteName + '0' + std::to_string(i);
 		}
 		else {
@@ -106,4 +106,14 @@ Core* Core::sharedCore()
 		s_firstRun = false;
 	}
 	return &s_sharedCore;
+}
+
+void Core::setPlayerColor(Color newColor)
+{
+	_playerColor = newColor;
+}
+
+Color Core::getPlayerColor()
+{
+	return _playerColor;
 }

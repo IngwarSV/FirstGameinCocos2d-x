@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "Core.h"
+#include "Specification.h"
 
 class Player : public cocos2d::Sprite {
 private:
@@ -12,15 +13,20 @@ private:
 
 	Core* _core;
 
-	Sequence* _mainSequence;
+	cocos2d::Sequence* _mainSequence;
 
-	void changeColor();
+	Color getRandomColor(Color c);
 
 public:
 	Player();
 	virtual ~Player(); //? virtual
 
+	
+
 	virtual bool init();
+
+	Color getColor();
+	void changeColor();
 
 	virtual void update(float deltaTime);
 

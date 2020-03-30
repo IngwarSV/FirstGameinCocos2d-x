@@ -30,6 +30,7 @@ bool GameLayer::init() {
 
 	// Adding Player
 	auto player = Player::create();
+	//auto player = new Player();
 	this->addChild(player, 100);
 
 

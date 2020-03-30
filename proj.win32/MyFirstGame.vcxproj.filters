@@ -56,6 +56,9 @@
     <ClInclude Include="..\Classes\Core.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Specification.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
