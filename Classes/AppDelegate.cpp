@@ -96,6 +96,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
+    FileUtils::getInstance()->setDefaultResourceRootPath("../Resources");
+
+    //Init Core
+   Core::sharedCore();
+
     // create a scene. it's an autorelease object
     auto scene = GameMenu::createScene();
 

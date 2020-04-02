@@ -113,7 +113,42 @@ void Core::setPlayerColor(Color newColor)
 	_playerColor = newColor;
 }
 
+void Core::setTargetPosition(Vec2 position)
+{
+	_targetPosition = position;
+}
+
+void Core::setPlayerPreviousPosition(cocos2d::Vec2 position)
+{
+	_playerPreviousPosition = position;
+}
+
+void Core::setTargetAngle(float angle)
+{
+	_targetAngle = angle;
+}
+
 Color Core::getPlayerColor()
 {
 	return _playerColor;
+}
+
+//Player Core::getPlayer()
+//{
+//	return _player;
+//}
+
+Vec2 Core::getTargetPosition()
+{
+	return _targetPosition;
+}
+
+cocos2d::Vec2 Core::getPlayerPreviousPosition()
+{
+	return _playerPreviousPosition;
+}
+
+float Core::getTargetAngle()
+{
+	return _targetAngle;
 }

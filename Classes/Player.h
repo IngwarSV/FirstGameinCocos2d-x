@@ -4,6 +4,8 @@
 #include "Core.h"
 #include "Specification.h"
 
+//class Core;
+
 class Player : public cocos2d::Sprite {
 private:
 	// Actions
@@ -11,7 +13,7 @@ private:
 	cocos2d::Action* _greenAnimation;
 	cocos2d::Action* _blueAnimation;
 
-	Core* _core;
+	//Core* _core;
 
 	cocos2d::Sequence* _mainSequence;
 
