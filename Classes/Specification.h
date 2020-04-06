@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cocos2d.h"
+
 enum class Color
 {
 	None,

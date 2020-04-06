@@ -36,6 +36,9 @@
     <ClCompile Include="..\Classes\Core.cpp">
       <Filter>Cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BadGuy.cpp">
+      <Filter>Cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -57,6 +60,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Specification.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BadGuy.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

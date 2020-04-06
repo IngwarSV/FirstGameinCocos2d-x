@@ -7,7 +7,7 @@
 using namespace cocos2d;
 
 Player::Player() {
-	init();
+	//init();
 }
 Player::~Player() {
 
