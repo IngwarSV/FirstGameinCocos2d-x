@@ -7,3 +7,5 @@ enum class Color
 	Green,
 	Blue
 };
+
+const size_t DEFAULT_SPEED = 140u;

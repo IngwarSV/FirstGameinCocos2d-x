@@ -29,4 +29,6 @@ public:
 	void onMouseMove(cocos2d::Event*);
 
 	void playerMove(float deltaTime);
+
+	void processEvent(cocos2d::Event* event);
 };

@@ -7,6 +7,9 @@
 
 class Core {
 private:
+	size_t _playerSpeed;
+	bool _playerMoving = false;
+
 	//Player _player;
 	Color _playerColor = Color::None;
 	cocos2d::Vec2 _targetPosition = cocos2d::Vec2(0.0f, 0.0f);
@@ -19,6 +22,10 @@ private:
 	bool init();
 
 public:
+	bool _playerIsMoving = false;
+
+	
+
 	static Core* sharedCore();
 
 	void setPlayerColor(Color newColor);
@@ -29,6 +36,8 @@ public:
 
 	void setTargetAngle(float angle);
 
+	void setPlayerSpeed(size_t speed);
+
 	Color getPlayerColor();
 
 	//Player getPlayer();
@@ -38,6 +47,8 @@ public:
 	cocos2d::Vec2 getPlayerPreviousPosition();
 
 	float getTargetAngle();
+
+	size_t getPlayerSpeed();
 
 
 };

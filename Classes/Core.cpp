@@ -7,6 +7,7 @@ static Core s_sharedCore;
 
 bool Core::init()
 {
+	this->setPlayerSpeed(DEFAULT_SPEED);
 	//* загрузка Sprite Sheet (создание SpriteFrameCache)
 	auto spritecache = SpriteFrameCache::getInstance();
 	spritecache->addSpriteFramesWithFile("Images/game_sprites.plist", "Images/game_sprites.png");
@@ -128,6 +129,11 @@ void Core::setTargetAngle(float angle)
 	_targetAngle = angle;
 }
 
+void Core::setPlayerSpeed(size_t speed)
+{
+	_playerSpeed = speed;
+}
+
 Color Core::getPlayerColor()
 {
 	return _playerColor;
@@ -151,4 +157,9 @@ cocos2d::Vec2 Core::getPlayerPreviousPosition()
 float Core::getTargetAngle()
 {
 	return _targetAngle;
+}
+
+size_t Core::getPlayerSpeed()
+{
+	return _playerSpeed;
 }

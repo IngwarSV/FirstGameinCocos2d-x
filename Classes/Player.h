@@ -27,7 +27,7 @@ public:
 
 	virtual bool init();
 
-	Color getColor();
+	//Color getColor();
 	void changeColor();
 
 	virtual void update(float deltaTime);

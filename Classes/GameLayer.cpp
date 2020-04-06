@@ -59,7 +59,7 @@ bool GameLayer::init() {
 }
 
 void GameLayer::update(float deltaTime) {
-
+	this->playerMove(deltaTime);
 
 
 }
@@ -84,12 +84,7 @@ void GameLayer::onMouseUP(Event* event) {
 }
 
 void GameLayer::onMouseDown(Event* event) {
-	EventMouse* mouseEvent = static_cast<EventMouse*>(event);
-	Vec2 point = mouseEvent->getLocation();
-	Core::sharedCore()->setTargetPosition(point);
-
-
-
+	this->processEvent(event);
 }
 
 void GameLayer::onMouseMove(Event* event) {
@@ -98,22 +93,105 @@ void GameLayer::onMouseMove(Event* event) {
 
 void GameLayer::playerMove(float deltaTime)
 {
-	if (Core::sharedCore()->getTargetPosition().equals(Vec2::ZERO)) {
+	auto core = Core::sharedCore();
+
+	if (!core->_playerIsMoving)
+	{
 		return;
 	}
-	
+
+	/*if (core->getTargetPostion().equals(Vec2::ZERO))
+	{
+		return;
+	}*/
+
+	auto playerPrevPosition = core->getPlayerPreviousPosition();
 	auto playerPosition = _player->getPosition();
-	auto targetPosition = Core::sharedCore()->getTargetPosition();
+	auto targetPosition = core->getTargetPosition();
 
-	// Calculating angle between playerPosition and targetPosition
+	float distance = playerPrevPosition.getDistance(playerPosition);
 
-	float dY = targetPosition.y - playerPosition.y;
-	float dX = targetPosition.x - playerPosition.x;
+	if (distance > 10)
+	{
+		CCLOG("CRAZY MOVE HAPPENED");
+	}
 
-	Core::sharedCore()->setTargetAngle(atan2f(dY, dX));
+	float previousDistance = playerPrevPosition.getDistance(targetPosition);
+	float currentDistance = playerPosition.getDistance(targetPosition);
 
-	float distance = cocos2d::ccpDistance(Core::sharedCore()->getTargetPosition(), 
-											Core::sharedCore()->getPlayerPreviousPosition());
+	if (currentDistance < 1 || previousDistance < 0)
+	{
+		core->_playerIsMoving = false;
+		return;
+	}
+
+	Vec2 newPosition = Vec2(playerPosition);
+
+	// Set new position based on the elapsed time (dt) for this frame
+	// As well we must take into account the angle at which the player
+	// needs to move
+	size_t speed = core->getPlayerSpeed();
+	newPosition.x = newPosition.x +
+		(deltaTime * speed * cosf(core->getTargetAngle()));
+	newPosition.y = newPosition.y +
+		(deltaTime * speed * sinf(core->getTargetAngle()));
+
+	_player->setPosition(newPosition);
+
+	core->setPlayerPreviousPosition(newPosition);
+
+}
+
+void GameLayer::processEvent(Event* event)
+{
+	if (!event) {
+		return;
+	}
+
+	Vec2 locationInView = Vec2::ZERO;
+
+	switch (event->getType())
+	{
+	case Event::Type::MOUSE:
+	{
+		auto mouseEvent = static_cast<EventMouse*>(event);
+		locationInView = mouseEvent->getLocationInView();
+	}
+	break;
+
+	case Event::Type::GAME_CONTROLLER:
+	case Event::Type::TOUCH:
+	case Event::Type::KEYBOARD:
+	{
+		CCLOG("WE DONT HANDLE YET");
+		return;
+	}
+	default:
+		CCLOG("WE WONT HANDLE");
+		return;
+
+	}
+
+	Core* core = Core::sharedCore();
+
+	// Get the angle between p1 & click location
+	Vec2 playerPosition = _player->getPosition();
+	float dY = locationInView.y - playerPosition.y;
+	float dX = locationInView.x - playerPosition.x;
+
+	// angle в радианах
+	float angle = atan2f(dY, dX);
+	core->setTargetAngle(angle);
+
+	Size size = Director::getInstance()->getWinSize();
+
+	//setting the bounds in which touch event has to be.
+	// if locationInView > Vec2(size.width, size.height) -> locationInView = Vec2(size.width, size.height);
+	// if locationInView < Vec2::ZERO -> locationInView = Vec2::ZERO;
+	auto clampPoint = locationInView.getClampPoint(Vec2::ZERO, Vec2(size.width, size.height));
+	core->setTargetPosition(clampPoint);
+
+	core->_playerIsMoving = true;
 
 }
 

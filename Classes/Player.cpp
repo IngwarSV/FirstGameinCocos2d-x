@@ -90,9 +90,9 @@ bool Player::init() {
 	return true;
 }
 
-Color Player::getColor() {
-	return Core::sharedCore()->getPlayerColor();
-}
+//Color Player::getColor() {
+//	return Core::sharedCore()->getPlayerColor();
+//}
 
 void Player::update(float deltaTime) {
 
