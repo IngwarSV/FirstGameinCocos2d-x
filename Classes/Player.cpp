@@ -1,5 +1,4 @@
-#include <random>
-#include <ctime>
+
 #include <vector>
 
 #include "Player.h"
@@ -15,10 +14,7 @@ Player::~Player() {
 
 Color Player::getRandomColor(Color currentColor)
 {
-	std::mt19937 gen(time(NULL));
-	std::uniform_int_distribution<int> uid(1, 3);
-
-	Color newColor = static_cast<Color>(uid(gen));
+	Color newColor = static_cast<Color>(_core->getRandom(1, 3));
 	
 	/*for (; newColor == currentColor;) {
 		newColor = static_cast<Color>(uid(gen));
@@ -29,9 +25,9 @@ Color Player::getRandomColor(Color currentColor)
 
 void Player::changeColor() {
 
-	Color newColor = getRandomColor(Core::sharedCore()->getPlayerColor());
+	Color newColor = getRandomColor(_core->getPlayerColor());
 
-	Core::sharedCore()->setPlayerColor(newColor);
+	_core->setPlayerColor(newColor);
 
 	if (this->getNumberOfRunningActions() > 0)
 	{
@@ -56,11 +52,17 @@ void Player::changeColor() {
 	}
 }
 
+int Player::getRadius() // maybe this->getContentSize().width * 0.5f?????
+{
+	return kPlayerRadius;
+}
+
 
 
 bool Player::init() {
 
-	
+	//Init Core
+	//Core::sharedCore();
 
 	auto redAnimate = Animate::create(
 		AnimationCache::getInstance()->getAnimation("RED"));

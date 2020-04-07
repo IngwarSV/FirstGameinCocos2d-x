@@ -7,6 +7,7 @@ static Core s_sharedCore;
 
 bool Core::init()
 {
+	_randomGenerator.seed(time(NULL));
 	this->setPlayerSpeed(DEFAULT_SPEED);
 	//* загрузка Sprite Sheet (создание SpriteFrameCache)
 	auto spritecache = SpriteFrameCache::getInstance();
@@ -162,4 +163,18 @@ float Core::getTargetAngle()
 size_t Core::getPlayerSpeed()
 {
 	return _playerSpeed;
+}
+
+const std::vector<cocos2d::Sprite*>& Core::getBadGuys() const
+{
+	return _badGuys;
+}
+
+int Core::getRandom(int min, int max)
+{
+	assert(max >= min);
+
+	std::uniform_int_distribution<int> uid(min, max);
+
+	return uid(_randomGenerator);
 }

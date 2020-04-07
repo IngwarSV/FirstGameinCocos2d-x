@@ -5,6 +5,8 @@
 
 using namespace cocos2d;
 
+//class Core;
+
 class BadGuy : public Sprite
 {
 private:
@@ -39,9 +41,9 @@ public:
 	ActionInterval* getRepeatAction();
 	FiniteTimeAction* getMoveAction();
 
+	CREATE_FUNC(BadGuy);
 };
 
-CREATE_FUNC(BadGuy);
 
 inline float calcRadius(Sprite* s)
 {

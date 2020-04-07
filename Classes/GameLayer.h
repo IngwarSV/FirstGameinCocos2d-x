@@ -2,13 +2,18 @@
 
 #include "cocos2d.h"
 #include "Player.h"
-//#include "Baddie.h"
+#include "BadGuy.h"
 
 
 class GameLayer : public cocos2d::Layer
 {
 private:
+	Core* _core = Core::sharedCore();
 	Player* _player = nullptr;
+	float _gameTime = 0.0f;
+	int _badGuysAmount = 0;
+	cocos2d::Vector<Sprite*> _pool = cocos2d::Vector<Sprite*>(100);
+
 public:
 	GameLayer();
 
@@ -29,6 +34,10 @@ public:
 	void onMouseMove(cocos2d::Event*);
 
 	void playerMove(float deltaTime);
+
+	void updateBadGuys(float deltaTime);
+
+	void addBadGuy();
 
 	void processEvent(cocos2d::Event* event);
 };

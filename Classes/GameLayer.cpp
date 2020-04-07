@@ -19,6 +19,9 @@ cocos2d::Scene* GameLayer::createScene() {
 }
 
 bool GameLayer::init() {
+	//Re-Init Core
+	//Core::sharedCore();
+
 	// Getting windows size
 	auto winSize = Director::getInstance()->getWinSize();
 
@@ -60,7 +63,7 @@ bool GameLayer::init() {
 
 void GameLayer::update(float deltaTime) {
 	this->playerMove(deltaTime);
-
+	this->updateBadGuys(deltaTime);
 
 }
 
@@ -93,9 +96,7 @@ void GameLayer::onMouseMove(Event* event) {
 
 void GameLayer::playerMove(float deltaTime)
 {
-	auto core = Core::sharedCore();
-
-	if (!core->_playerIsMoving)
+	if (!_core->_playerIsMoving)
 	{
 		return;
 	}
@@ -105,9 +106,9 @@ void GameLayer::playerMove(float deltaTime)
 		return;
 	}*/
 
-	auto playerPrevPosition = core->getPlayerPreviousPosition();
+	auto playerPrevPosition = _core->getPlayerPreviousPosition();
 	auto playerPosition = _player->getPosition();
-	auto targetPosition = core->getTargetPosition();
+	auto targetPosition = _core->getTargetPosition();
 
 	float distance = playerPrevPosition.getDistance(playerPosition);
 
@@ -121,7 +122,7 @@ void GameLayer::playerMove(float deltaTime)
 
 	if (currentDistance < 1 || previousDistance < 0)
 	{
-		core->_playerIsMoving = false;
+		_core->_playerIsMoving = false;
 		return;
 	}
 
@@ -130,15 +131,83 @@ void GameLayer::playerMove(float deltaTime)
 	// Set new position based on the elapsed time (dt) for this frame
 	// As well we must take into account the angle at which the player
 	// needs to move
-	size_t speed = core->getPlayerSpeed();
+	size_t speed = _core->getPlayerSpeed();
 	newPosition.x = newPosition.x +
-		(deltaTime * speed * cosf(core->getTargetAngle()));
+		(deltaTime * speed * cosf(_core->getTargetAngle()));
 	newPosition.y = newPosition.y +
-		(deltaTime * speed * sinf(core->getTargetAngle()));
+		(deltaTime * speed * sinf(_core->getTargetAngle()));
 
 	_player->setPosition(newPosition);
 
-	core->setPlayerPreviousPosition(newPosition);
+	_core->setPlayerPreviousPosition(newPosition);
+
+}
+
+void GameLayer::updateBadGuys(float deltaTime)
+{
+	_gameTime += deltaTime;
+
+	if (_gameTime > _badGuysAmount * 5) {
+		_badGuysAmount += 1;
+		this->addBadGuy();
+	}
+
+}
+
+void GameLayer::addBadGuy()
+{
+	//if (_pool.empty())
+	//{
+	auto _badGuy = BadGuy::create();
+	//auto _badGuy = new BadGuy();
+	_pool.pushBack(_badGuy);
+	//}
+	BadGuy* badGuy = (BadGuy*)_pool.back();
+	//_pool.popBack();
+
+	badGuy->prepare();
+
+	Vec2 pos;
+
+	Size window = Director::getInstance()->getWinSize();
+
+	do
+	{
+		float x = _core->getRandom(0, window.width);
+		float y = _core->getRandom(0, window.height);
+		pos = Vec2(x, y);
+
+		if (!isCollide(pos, badGuy->getRadius(), _player->getPosition(), _player->getRadius() * 3.0f))
+		{
+			break;
+		}
+
+	} while (true);
+
+	badGuy->setPosition(pos);
+
+	if (!badGuy->getParent())
+	{
+		this->addChild(badGuy, 900, "BADGUY");
+	}
+
+	ActionInterval* action = badGuy->getRepeatAction();
+	if (action)
+	{
+		badGuy->runAction(action);
+	}
+
+	if (badGuy->getColor() != _core->getPlayerColor())
+	{
+		FiniteTimeAction* move = badGuy->getMoveAction();
+
+		if (move)
+		{
+			badGuy->runAction(move);
+		}
+	}
+
+	
 
 }
 

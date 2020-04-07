@@ -3,12 +3,12 @@
 
 void BadGuy::destroyMe()
 {
-	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
+	/*Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
 	if (this->getParent())
 	{
 		this->getParent()->removeChild(this);
-	}
+	}*/
 }
 
 bool BadGuy::init()
@@ -34,14 +34,14 @@ void BadGuy::prepare()
 	std::string image{};
 	SpriteFrame* frame;
 
-	/*int rnd = randi(1, 3);
+	Color color = static_cast<Color>(_core->getRandom(1, 3));
 
-	if (rnd == 1)
+	if (color == Color::Red)
 	{
 		image = "cell_red_1.png";
 		_color = Color::Red;
 	}
-	else if (rnd == 2)
+	else if (color == Color::Green)
 	{
 		image = "cell_green_1.png";
 		_color = Color::Green;
@@ -53,9 +53,9 @@ void BadGuy::prepare()
 	}
 
 	frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(image);
-	this->setDisplayFrame(frame);
+	this->setSpriteFrame(frame);
 	this->_radius = calcRadius(this);
-	this->setVisible(true);*/
+	this->setVisible(true);
 
 }
 
@@ -103,25 +103,23 @@ void BadGuy::setColor(Color color)
 //	return _isMoving;
 //}
 
-//void BadGuy::triggerIsMoving()
-//{
-//	_isMoving = false;
-//
-//	const auto badGuys = _core->getBadGuys();
-//
-//	for (auto it = badGuys.begin(); it != badGuys.end(); it++)
-//	{
-//		Sprite* badGuys = *it;
-//
-//		if (isCollide(this->getPosition(), 3, badGuys->getPosition(), 3))
-//		{
-//			auto angle = randi(0, 360);
-//			badGuys->runAction(MoveTo::create(0.5f, badGuys->getPosition() + Vec2(sin(angle) * 10, cos(angle) * 10)));
-//			angle = (angle + 180) % 360;
-//			this->runAction(MoveTo::create(0.5f, this->getPosition() + Vec2(sin(angle) * 10, cos(angle) * 10)));
-//		}
-//	}
-//}
+void BadGuy::triggerIsMoving()
+{
+	_isMoving = false;
+
+	const auto v_badGuys = _core->getBadGuys();
+
+	for (auto bad_guy: v_badGuys)
+	{
+		if (isCollide(this->getPosition(), 3, bad_guy->getPosition(), 3))
+		{
+			auto angle = _core->getRandom(0, 360);
+			bad_guy->runAction(MoveTo::create(0.5f, bad_guy->getPosition() + Vec2(cos(angle) * 10, sin(angle) * 10))); // radians????
+			angle = (angle + 180) % 360;
+			this->runAction(MoveTo::create(0.5f, this->getPosition() + Vec2(cos(angle) * 10, sin(angle) * 10))); // radians????
+		}
+	}
+}
 
 // breathing of BGuy)
 // all actions below inherit ActionInterval which in his turn inherits FiniteTimeAction
