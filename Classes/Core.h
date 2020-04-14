@@ -14,6 +14,8 @@ private:
 	std::mt19937 _randomGenerator;
 	size_t _playerSpeed;
 	bool _playerMoving = false;
+	int _playerHitpoints = 3;
+	int _playerScore = 0;
 
 	//Player _player;
 	Color _playerColor = Color::None;
@@ -46,7 +48,15 @@ public:
 
 	void setPlayerSpeed(size_t speed);
 
+	void playerHit();
+
+	void playerScored();
+
 	Color getPlayerColor();
+
+	int getPlayerHitpoints();
+
+	int getPlayerScore();
 
 	//Player getPlayer();
 

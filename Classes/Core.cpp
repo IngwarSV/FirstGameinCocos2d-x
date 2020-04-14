@@ -135,9 +135,29 @@ void Core::setPlayerSpeed(size_t speed)
 	_playerSpeed = speed;
 }
 
+void Core::playerHit()
+{
+	_playerHitpoints -= 1;
+}
+
+void Core::playerScored()
+{
+	_playerScore += 1;
+}
+
 Color Core::getPlayerColor()
 {
 	return _playerColor;
+}
+
+int Core::getPlayerHitpoints()
+{
+	return _playerHitpoints;
+}
+
+int Core::getPlayerScore()
+{
+	return _playerScore;
 }
 
 //Player Core::getPlayer()

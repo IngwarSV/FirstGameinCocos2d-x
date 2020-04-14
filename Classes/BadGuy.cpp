@@ -3,12 +3,12 @@
 
 void BadGuy::destroyMe()
 {
-	/*Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
+	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
 	if (this->getParent())
 	{
 		this->getParent()->removeChild(this);
-	}*/
+	}
 }
 
 bool BadGuy::init()
@@ -68,20 +68,20 @@ BadGuy::~BadGuy()
 {
 }
 
-//void BadGuy::removeBadGuy(Sound sound)
-//{
-//	_core->playEffect(sound);
-//
-//	Animation* explosion = AnimationCache::getInstance()->getAnimation("Explosion");
-//	Animate* animate = Animate::create(explosion);
-//
-//	auto sequence = Sequence::create(animate,
-//		CallFunc::create(this, CC_CALLFUNC_SELECTOR(BadGuy::destroyMe)), nullptr);
-//
-//	this->stopAllActions();
-//
-//	this->runAction(sequence);
-//}
+void BadGuy::removeBadGuy(/*Sound sound*/)
+{
+	//_core->playEffect(sound);
+
+	Animation* explosion = AnimationCache::getInstance()->getAnimation("EXPLOSION");
+	Animate* animate = Animate::create(explosion);
+
+	auto sequence = Sequence::create(animate,
+		CallFunc::create(this, CC_CALLFUNC_SELECTOR(BadGuy::destroyMe)), nullptr);
+
+	this->stopAllActions();
+
+	this->runAction(sequence);
+}
 
 float BadGuy::getRadius()
 {

@@ -28,7 +28,7 @@ public:
 	BadGuy();
 	~BadGuy();
 
-	//void removeBadGuy(Sound);
+	void removeBadGuy(/*Sound*/);
 
 	float getRadius();
 

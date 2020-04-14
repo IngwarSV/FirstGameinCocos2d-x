@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "BadGuy.h"
+#include "GameMenu.h"
 
 
 class GameLayer : public cocos2d::Layer
@@ -21,9 +22,13 @@ public:
 
 	virtual bool init() override;
 
+	CREATE_FUNC(GameLayer);
+
 	virtual void update(float deltaTime) override;
 
-	CREATE_FUNC(GameLayer);
+	void handleCollision(float);
+
+	
 
 	bool onTouchesBegin(cocos2d::Touch*, cocos2d::Event*);
 	bool onTouchesMoved(cocos2d::Touch*, cocos2d::Event*);
