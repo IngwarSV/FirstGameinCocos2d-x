@@ -29,6 +29,8 @@ public:
 
 	virtual void update(float deltaTime) override;
 
+	void updateUi(float);
+
 	void handleCollision(float);
 
 	

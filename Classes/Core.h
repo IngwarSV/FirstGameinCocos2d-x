@@ -17,6 +17,8 @@ private:
 	int _playerHitpoints = 10;
 	int _playerScore = 0;
 
+
+
 	//Player _player;
 	Color _playerColor = Color::None;
 	cocos2d::Vec2 _targetPosition = cocos2d::Vec2(0.0f, 0.0f);

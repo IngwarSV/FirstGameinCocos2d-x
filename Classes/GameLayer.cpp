@@ -89,6 +89,7 @@ void GameLayer::update(float deltaTime) {
 	this->playerMove(deltaTime);
 	this->updateBadGuys(deltaTime);
 	this->handleCollision(deltaTime);
+	this->updateUi(deltaTime);
 }
 
 void GameLayer::handleCollision(float dt)
@@ -154,19 +155,21 @@ void GameLayer::handleCollision(float dt)
 		overlay->setOpacity(damage);
 	}
 
-	//// Check our game win condition
-	//if (core->getScore() >= 10)
-	//{
-	//	//Win!
-	//	Director::getInstance()->replaceScene(GameMenu::scene());
-	//}
+	// Check our game win condition
+	if (_core->getPlayerScore() >= 10)
+	{
+		//Win!
+		Director::getInstance()->replaceScene(GameMenu::createScene());
+	}
+}
 
-	////Test win condition
-	//if (core->getScore() >= 25)
-	//{
-	//	//Win!
-	//	Director::getInstance()->replaceScene(GameMenu::scene());
-	//}
+void GameLayer::updateUi(float dt)
+{
+	std::string score = "Score: " + std::to_string(_core->getPlayerScore());
+	std::string health = "Health: " + std::to_string(_core->getPlayerHitpoints());
+
+	_lblHealth->setString(health);
+	_lblScore->setString(score);
 }
 
 
