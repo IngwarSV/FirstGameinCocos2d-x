@@ -31,12 +31,17 @@ bool GameLayer::init() {
 
 	// Adding game background
 	auto background = Sprite::create("Images/game_background.png");
+	background->setAnchorPoint(Vec2(0.5f, 0.5f));
+	background->setPosition(position);
 	this->addChild(background, -1000);
 
 	// Adding blood overlay
 	auto bloodOverlay = Sprite::create("Images/overlay.png");
 	bloodOverlay->setOpacity(0);
-	this->addChild(bloodOverlay, 1000);
+	bloodOverlay->setAnchorPoint(Vec2(0.5f, 0.5f));
+	bloodOverlay->setPosition(position);
+	this->addChild(bloodOverlay, 1000, "OVERLAY");
+
 
 	// Adding Player
 	_player = Player::create();
@@ -59,6 +64,23 @@ bool GameLayer::init() {
 
 	// launching update method every frame
 	scheduleUpdate();
+
+	//Add labels
+	std::string health = "Health: " + std::to_string(_core->getPlayerHitpoints());
+
+	_lblHealth = Label::createWithTTF(health, "fonts/chemrea.ttf", 16);
+	_lblHealth->setColor(Color3B::RED);
+	_lblHealth->setPosition(Vec2(winSize.width / 2 - 50, winSize.height - 20));
+	this->addChild(_lblHealth, 10000);
+
+	std::string score = "Score: " + std::to_string(_core->getPlayerScore());
+
+	_lblScore = Label::createWithTTF(score, "fonts/chemrea.ttf", 16);
+	_lblScore->setColor(Color3B::YELLOW);
+	_lblScore->setPosition(Vec2(winSize.width / 2 + 50, winSize.height - 20));
+	this->addChild(_lblScore, 10000);
+
+
 
 	return true;
 }
@@ -124,12 +146,12 @@ void GameLayer::handleCollision(float dt)
 	}
 	else if (_core->getPlayerHitpoints() < 10)
 	{
-		/*auto hp = _core->getPlayerHitpoints();
+		auto hp = _core->getPlayerHitpoints();
 
 		float damage = (1.0f - ((float)hp / 10.0f)) * 255.0f;
 
 		auto overlay = this->getChildByName("OVERLAY");
-		overlay->setOpacity(damage);*/
+		overlay->setOpacity(damage);
 	}
 
 	//// Check our game win condition

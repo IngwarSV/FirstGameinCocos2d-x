@@ -15,6 +15,9 @@ private:
 	int _badGuysAmount = 0;
 	cocos2d::Vector<Sprite*> _pool = cocos2d::Vector<Sprite*>(100);
 
+	Label* _lblHealth;
+	Label* _lblScore;
+
 public:
 	GameLayer();
 

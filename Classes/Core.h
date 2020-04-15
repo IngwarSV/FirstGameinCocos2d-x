@@ -14,7 +14,7 @@ private:
 	std::mt19937 _randomGenerator;
 	size_t _playerSpeed;
 	bool _playerMoving = false;
-	int _playerHitpoints = 3;
+	int _playerHitpoints = 10;
 	int _playerScore = 0;
 
 	//Player _player;
